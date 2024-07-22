@@ -1,0 +1,54 @@
+ava
+Copy code
+import java.util.Scanner;
+
+public class UnitConverter {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to Unit Converter!");
+
+        System.out.print("Enter the unit you want to convert from (feet/pounds/fahrenheit): ");
+        String fromUnit = scanner.nextLine().toLowerCase();
+
+        System.out.print("Enter the unit you want to convert to (meters/kgs/celsius): ");
+        String toUnit = scanner.nextLine().toLowerCase();
+
+        System.out.print("Enter the quantity to be converted: ");
+        double quantity = scanner.nextDouble();
+
+        double result = convert(fromUnit, toUnit, quantity);
+        
+        if (result == Double.MIN_VALUE) {
+            System.out.println("Invalid conversion units entered.");
+        } else {
+            System.out.printf("The result of converting %.2f %s to %s is %.2f %s.%n", quantity, fromUnit, toUnit, result, toUnit);
+        }
+
+        scanner.close();
+    }
+
+    public static double convert(String fromUnit, String toUnit, double quantity) {
+        switch (fromUnit) {
+            case "feet":
+                if (toUnit.equals("meters")) {
+                    return quantity * 0.3048;
+                }
+                break;
+            case "pounds":
+                if (toUnit.equals("kgs")) {
+                    return quantity * 0.453592;
+                }
+                break;
+            case "fahrenheit":
+                if (toUnit.equals("celsius")) {
+                    return (quantity - 32) * 5/9;
+                }
+                break;
+            default:
+                return Double.MIN_VALUE;
+        }
+        return Double.MIN_VALUE;
+    }
+}
